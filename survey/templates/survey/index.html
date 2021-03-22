@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Do you like it ?</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var all_images = [];
+        var iter = 0;
+
+
+        function dislplay_img(label) {
+
+            var csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url : "poll/", // the endpoint
+                type : "POST", // http method
+                //data : { 'parent':parid, 'text' : $('#id_text').val(), 'author' : $('#id_author').val(), 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val() },
+                data : { 'image':all_images[iter], 'label' : label, 'author' : 'test', 'csrfmiddlewaretoken' : csrftoken },
+
+                // handle a successful response
+                success : function(json) {
+                    console.log("success");
+                }
+            });
+
+            iter+=1;
+            if( iter < all_images.length )
+                document.getElementById('cur_image').src='/media/'+all_images[iter];
+            else
+                document.getElementById('ImageContainer').innerHTML="<p>Thank you for your help </p>";
+
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+    </script>
+
+    <style>
+
+    #ImageContainer {
+        max-width: 500px;
+    }
+    .Image {
+        max-width: 100%;
+    }
+    </style>
+</head>
+    <h2>Choose your answer. </h2>
+
+
+    <div class="container">
+
+        <div id="ImageContainer" >
+            <div class="btn-toolbar">
+            <button type="button" class="btn-lg" onclick="dislplay_img('1')" name="good" id="good"> Good</button>
+            <button type="button" class="btn-lg" onclick="dislplay_img('0')" name="bad" id="bad"> Bad</button>
+            </div>
+            </br>
+            <img id="cur_image" src="/media/wimpykid2.jpg" class="thumbnail"/>
+        </div>
+
+        <script>
+            {% for image_url in images %}
+            //<img src="/media/{{ image_url }}" />
+                all_images.push('{{ image_url }}');
+            {% endfor %}
+
+            //console.log(all_images);
+            document.getElementById('cur_image').src='/media/'+all_images[0];
+        </script>
+    </div>
+<body>
+
+</body>
+</html>
