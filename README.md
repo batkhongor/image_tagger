@@ -1,2 +1,3 @@
 # image_tagger
-I used this image tagger tool to tag images for training
+I developed this image tagger tool to tag images for training using Django and Django rest
+
