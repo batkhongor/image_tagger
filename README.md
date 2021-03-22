@@ -1,3 +1,3 @@
 # image_tagger
-I developed this image tagger tool to tag images for training using Django and Django rest in 2018
+I developed this image tagger tool to prepare training data for object classification in 2018
 
