@@ -1,5 +1,6 @@
 # image_tagger
-I developed this image tagger tool to prepare training data for object classification using django rest in 2018
+I developed this image tagger tool to prepare training data for object classification using django rest in 2018.
+
 It helps a lot to speed up tagging images. I tagged over 20,000 thousand images within 2 days.
 
 
